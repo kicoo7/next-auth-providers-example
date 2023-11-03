@@ -19,8 +19,19 @@ export const authOptions: NextAuthOptions = {
       clientId: String(process.env.LINKEDIN_CLIENT_ID),
       clientSecret: String(process.env.LINKEDIN_CLIENT_SECRET),
       authorization: {
-        url: "https://www.linkedin.com/oauth/v2/authorization",
-        params: { scope: "profile email" },
+        params: { scope: "openid profile email" },
+      },
+      issuer: "https://www.linkedin.com",
+      jwks_endpoint: "https://www.linkedin.com/oauth/openid/jwks",
+      profile(profile, tokens) {
+        const defaultImage =
+          "https://cdn-icons-png.flaticon.com/512/174/174857.png";
+        return {
+          id: profile.sub,
+          name: profile.name,
+          email: profile.email,
+          image: profile.picture ?? defaultImage,
+        };
       },
     }),
     SpotifyProvider({
