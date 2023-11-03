@@ -27,7 +27,7 @@ export default async function Navbar() {
                         session && session.user ? (
                             <Link href="/api/auth/signout" className="block mt-4 lg:inline-block lg:mt-0 text-white font-semibold hover:underline mr-4">
                                 <div>
-                                    <img src={session.user.image} className='w-6 h-6 rounded-full mr-2 inline-block' />
+                                    <img src={String(session?.user?.image)} alt="Profile Photo" className='w-6 h-6 rounded-full mr-2 inline-block' />
                                     {session.user.name || session.user.email}
                                 </div>
                             </Link>
