@@ -1,6 +1,7 @@
 import { getServerSession } from 'next-auth';
 import Link from 'next/link';
 import { authOptions } from '../api/auth/[...nextauth]/route';
+import BugpilotComponent from './BugpilotComponent';
 
 export default async function Navbar() {
     const session = await getServerSession(authOptions);
@@ -22,6 +23,8 @@ export default async function Navbar() {
                     </Link>
 
                     <div className="flex-1" />
+
+                    {session && session.user && <BugpilotComponent user={{ id: session.user.email, email: session.user?.email, ...session?.user }} />}
 
                     {
                         session && session.user ? (
